@@ -25,8 +25,11 @@ Documentos de referencia (léelos antes de tareas grandes):
   `npx supabase start | stop | status | db reset | test db | migration new <nombre>`.
   Config en `supabase/config.jsonc` (no hay `config.toml`; ver ADR 0012). Los comandos sobre el proyecto alojado
   necesitan `--remote` y confirmación: no los lances sin permiso expreso. `npm run db:types` (pendiente: T1.18)
-- E2E con Maestro: `npm run e2e` (pendiente: T2.13) · EAS: `npx eas-cli build -p android --profile development`
-  (pendiente: T0.12)
+- E2E con Maestro: `npm run e2e` (pendiente: T2.13)
+- EAS: `npx eas-cli build -p android --profile development|preview`. Las variantes (`development`, `staging`,
+  `production`) se definen en `app.config.ts` y se eligen con `APP_VARIANT`, que fija cada perfil de `eas.json`; sin
+  ella se usa `development`. La variante `production` está bloqueada hasta confirmar el applicationId (T0.1 / ADR 0001).
+  `eas build` exige árbol limpio (`requireCommit`) y consume cuota de builds: no lo lances sin permiso expreso.
 
 Nota: `expo install … -- --save-dev` deja a veces paquetes en `dependencies`; revisa `package.json` y muévelos a
 `devDependencies` si son de desarrollo.
