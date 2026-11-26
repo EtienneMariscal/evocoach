@@ -1,0 +1,27 @@
+{
+  "cli": {
+    "version": ">= 27.11.0",
+    "appVersionSource": "remote",
+    "requireCommit": true
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "environment": "development",
+      "env": { "APP_VARIANT": "development" },
+      "android": { "withoutCredentials": true }
+    },
+    "preview": {
+      "distribution": "internal",
+      "environment": "preview",
+      "env": { "APP_VARIANT": "staging" },
+      "android": { "buildType": "apk" }
+    },
+    "production": {
+      "environment": "production",
+      "autoIncrement": true,
+      "env": { "APP_VARIANT": "production" }
+    }
+  }
+}
