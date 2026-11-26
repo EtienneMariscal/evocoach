@@ -16,3 +16,4 @@ Plantilla: [0000-plantilla.md](0000-plantilla.md). No se editan las aceptadas: s
 | 0009 | Cifrado de datos locales                                    | Pendiente (T0.13: spike SQLCipher)      |
 | 0010 | Proveedor de push y payloads sin datos de salud             | Pendiente (T8.5–T8.7)                   |
 | 0011 | [Línea base de herramientas](0011-linea-base-herramientas.md) | Aceptada                              |
+| 0012 | [Supabase local con CLI v3 y permisos explícitos](0012-supabase-local-cli-v3.md) | Aceptada      |
