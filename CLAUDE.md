@@ -21,8 +21,10 @@ Documentos de referencia (léelos antes de tareas grandes):
 - `npm test` · `npm run test:watch` · `npm run test:coverage`
 - `npm start` · `npm run android` (dev client; ver "Entorno" más abajo)
 - `npx expo install <paquete>` (NUNCA `npm i` para paquetes de Expo/RN) · `npx expo install --check` · `npx expo-doctor`
-- Supabase: `supabase start | stop | db reset | test db | migration new <nombre>` (pendiente: T0.5/T1.1;
-  se ejecuta como `npx supabase …` cuando se añada al proyecto) · `npm run db:types` (pendiente: T1.18)
+- Supabase (CLI v3 fijado en `package.json`; requiere Docker Desktop en marcha):
+  `npx supabase start | stop | status | db reset | test db | migration new <nombre>`.
+  Config en `supabase/config.jsonc` (no hay `config.toml`; ver ADR 0012). Los comandos sobre el proyecto alojado
+  necesitan `--remote` y confirmación: no los lances sin permiso expreso. `npm run db:types` (pendiente: T1.18)
 - E2E con Maestro: `npm run e2e` (pendiente: T2.13) · EAS: `npx eas-cli build -p android --profile development`
   (pendiente: T0.12)
 
@@ -45,7 +47,9 @@ Nota: `expo install … -- --save-dev` deja a veces paquetes en `dependencies`; 
 ## Reglas innegociables
 
 1. NUNCA `service_role`/secret key en la app ni en el bundle. Solo variables `EXPO_PUBLIC_*` públicas.
-2. Toda tabla nueva: RLS activado en la MISMA migración + tests pgTAP positivos y negativos (cross-tenant). Sin excepciones.
+2. Toda tabla nueva: RLS activado en la MISMA migración + `GRANT` explícito solo a `authenticated` (nunca `anon`) +
+   tests pgTAP positivos y negativos (cross-tenant). Funciones RPC: `revoke execute … from public` + `grant` a
+   `authenticated`; las `SECURITY DEFINER` auxiliares van en el esquema `private`. Sin excepciones (ADR 0012).
 3. Migraciones: solo hacia delante; NO editar migraciones ya aplicadas; una responsabilidad por migración; regenerar tipos.
 4. Datos de salud: no en logs, ni en payloads de push, ni en eventos de analítica, ni en mensajes de error.
    Usa el `logger` (con lista de campos permitidos).

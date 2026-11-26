@@ -8,3 +8,5 @@ assets
 expo-env.d.ts
 package-lock.json
 *.md
+# Plantilla comentada del CLI de Supabase: la reescribe el propio CLI.
+supabase/config.jsonc

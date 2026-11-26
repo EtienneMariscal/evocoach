@@ -1,0 +1,11 @@
+# Supabase
+.branches
+.temp
+
+# Secretos locales para `env(...)` de config.jsonc (SMTP, OAuth…): nunca al repositorio.
+.env
+
+# dotenvx
+.env.keys
+.env.local
+.env.*.local
